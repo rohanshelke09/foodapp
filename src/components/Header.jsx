@@ -1,6 +1,11 @@
-
+import { useState } from "react";
 
 const Header = () => {
+  // let btnName = "Login";
+
+  const [btnName,setBtnName]=useState("Login");
+  console.log("Header rendered");
+
   return (
     <div className="header">
       <div className="logo-container">
@@ -16,11 +21,18 @@ const Header = () => {
           <li>Contact</li>
           <li>About Us</li>
           <li>Cart</li>
+          <button
+            className="login"
+            onClick={() => {
+              btnName ==='Login' ? setBtnName("Logout") : setBtnName("Login");
+            }}
+          >
+            {btnName}
+          </button>
         </ul>
       </div>
     </div>
   );
 };
-
 
 export default Header;

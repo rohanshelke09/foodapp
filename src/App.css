@@ -60,8 +60,12 @@ body {
   padding: 8px 0;
 }
 
+.filter{
+  display: flex;
+  margin: 3px;
+}
+
 .filter-btn {
-  padding: 8px 12px;
   border: 1px solid #ddd;
   background: #fff;
   border-radius: 6px;
@@ -119,3 +123,128 @@ body {
 	.restro-card img { height: 80px; }
 }
 
+.restaurant-container,
+.shimmer-container {
+  width: 85%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  column-gap: 2%;
+  row-gap: 20px;
+}
+
+.shimmer-container {
+  margin-top: 120px;
+}
+
+.restaurant-card,
+.shimmer-card {
+  width: 250px;
+  height: 300px;
+  background-color: #fff;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  cursor: pointer;
+}
+
+.shimmer-card {
+  background-color: #cecccc;
+}
+
+.restaurant-card:hover {
+  transform: scale(0.98);
+}
+
+.search-box {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  border: 1px solid var(--orange);
+  border-radius: var(--border-radius);
+}
+
+.shimmer-search-box {
+  width: 50%;
+  height: 50px;
+  background-color: #cecccc;
+  border-radius: var(--border-radius);
+  margin-bottom: 30px;
+}
+
+/* Shimmer Effect */
+.shimmer-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 0;
+}
+
+.shimmer-card {
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  padding: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  width: 180px;
+  height: 220px; /* Adjust height to match RestroCard */
+  background: #f0f0f0;
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -200%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    left: 200%;
+  }
+}
+
+
+
+.login {
+  padding: 6px 12px;
+  background-color:#cecccc;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+
+.search{
+  display: flex;
+  flex-direction: row;
+  gap:10px;
+  justify-content: center;
+  
+}
+.search input {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.search button {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.search button:hover {
+  background: #f0f0f0;
+}
