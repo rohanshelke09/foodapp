@@ -10,31 +10,30 @@ const Body = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await fetch(
-          "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING"
+        const response = await fetch(
+          "https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.07480&lng=72.88560&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+        );
+        const json = await response.json();
+
+        // Dynamically find the restaurant data in the cards array
+        const restaurantCard = json?.data?.cards.find(
+          (card) =>
+            card?.card?.card?.["@type"] ===
+              "type.googleapis.com/swiggy.gandalf.widgets.v2.GridWidget" &&
+            card?.card?.card?.gridElements?.infoWithStyle?.restaurants
         );
 
-        const json = await data.json();
-
         const restaurants =
-          json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
+          restaurantCard?.card?.card?.gridElements?.infoWithStyle
             ?.restaurants;
 
         if (restaurants) {
-          //solve bug of not rendering restaurants for resolve the becoz they dont modify the original data
-          
           setListOfRestaurants(restaurants);
           setFilteredRestaurants(restaurants);
         } else {
-          const restaurantsFromAlternativePath =
-            json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
-              ?.restaurants;
-          if (restaurantsFromAlternativePath) {
-            setListOfRestaurants(restaurantsFromAlternativePath);
-            setFilteredRestaurants(restaurantsFromAlternativePath);
-          } else {
-            console.error("Could not find restaurants in the expected paths.");
-          }
+          console.error(
+            "Could not find restaurant data in the API response."
+          );
         }
       } catch (error) {
         console.error("Failed to fetch data:", error);
@@ -90,5 +89,6 @@ const Body = () => {
     </div>
   );
 };
+
 
 export default Body;
