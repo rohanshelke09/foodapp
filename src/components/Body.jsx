@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import RestroCard from "./RestroCard";
+import RestroCard, { withPromotedLabel } from "./RestroCard";
 import Shimmer from "./Shimmer";
 
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [searchText,setSearchText]=useState("");
+
+  const RestroCardPromoted=withPromotedLabel(RestroCard);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,6 +48,7 @@ const Body = () => {
   //   return <Shimmer />;
   // }
 
+
   return listOfRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
@@ -83,6 +86,8 @@ const Body = () => {
       </div>
       <div className="restro-container">
         {filteredRestaurants.map((restaurant) => (
+          restaurant.info.promoted ?
+          <RestroCardPromoted key={restaurant.info.id} restaurantData={restaurant} /> :
           <RestroCard key={restaurant.info.id} restaurantData={restaurant} />
         ))}
       </div>

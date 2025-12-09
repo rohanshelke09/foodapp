@@ -3,12 +3,11 @@ import { Link } from "react-router-dom";
 
 const RestroCard = (props) => {
   const { restaurantData } = props;
-
   const {
     cloudinaryImageId,
     name,
     avgRating,
-    cuisines,
+    cuisines = [],
     costForTwo,
     sla,
     id,
@@ -25,7 +24,7 @@ const RestroCard = (props) => {
         <div className="restro-details">
           <h3>{name}</h3>
           <p>{cuisines.join(", ")}</p>
-          <div className="restro-stats">
+          <div className="resto-stats">
             <span>⭐ {avgRating}</span>
             <span>•</span>
             <span>{sla?.slaString}</span>
@@ -35,6 +34,16 @@ const RestroCard = (props) => {
         </div>
       </div>
     </Link>
+  );
+};
+
+// Higher order component
+export const withPromotedLabel = (RestroCard) => {
+  return (props) => (
+    <div>
+      <label>Promoted</label>
+      <RestroCard {...props} />
+    </div>
   );
 };
 
