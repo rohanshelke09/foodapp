@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react";
-import RestroCard, { withPromotedLabel } from "./RestroCard";
+import { useContext, useEffect, useState } from "react";
+import RestroCard from "./RestroCard";
 import Shimmer from "./Shimmer";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [searchText,setSearchText]=useState("");
 
-  const RestroCardPromoted=withPromotedLabel(RestroCard);
+  // const RestroCardPromoted=withPromotedLabel(RestroCard);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,6 +50,9 @@ const Body = () => {
   // }
 
 
+  const {loggedInUser,setUserName}=useContext(UserContext);
+
+
   return listOfRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
@@ -83,6 +87,14 @@ const Body = () => {
         >
           Top Rated Restaurants
         </button>
+
+        <div>
+          <label >UserName : </label>
+          {/*this input value auto fetch when i change it auto change where it use  */}
+          <input type="text" value={loggedInUser} onChange={(e)=>{
+            setUserName(e.target.value);
+          }} />
+        </div>
       </div>
       <div className="restro-container">
         {filteredRestaurants.map((restaurant) => (
